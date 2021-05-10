@@ -8,5 +8,6 @@ EXTENSIONS_DIR="$SCRIPTS_DIR/extensions"
 $SCRIPTS_DIR/install.sh \
   -E $EXTENSIONS_DIR/vim.sh:vim_loader \
   -E $EXTENSIONS_DIR/omz.sh:omz_loader \
+  -E $EXTENSIONS_DIR/sbin.sh:sbin_loader \
   -E $EXTENSIONS_DIR/apt/apt.sh:apt_loader \
   -E $EXTENSIONS_DIR/brew/brew.sh:brew_loader

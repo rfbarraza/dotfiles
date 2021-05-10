@@ -72,12 +72,12 @@ PATH="/opt/local/sbin:$PATH"
 PATH="/opt/local/bin:$PATH"
 
 # User Homebrew
-PATH="$HOME/.homebrew/Cellar:$PATH"
-PATH="$HOME/.homebrew/bin:$PATH"
+PATH="$HOMEBREW_CELLAR:$PATH"
+PATH="$HOMEBREW_PREFIX/bin:$PATH"
 
 # dotfiles (assumes local location)
-PATH="$HOME/local/scripts:$PATH"
-PATH="$HOME/local/bin:$PATH"
+PATH="$HOME/.local/sbin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
 
 # ... and finally, pwd
 PATH="./:$PATH"
@@ -88,15 +88,15 @@ bindkey '^R' history-incremental-search-backward
 
 
 ## Functions
-source "$HOME/local/include/zsh/functions.sh"
+source "$HOME/.local/lib/sh/functions.sh"
 
 ## Jump Around
 # AKA - z DIR
 if command -v brew >/dev/null 2>&1; then
 	# Load rupa's z if installed
 	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
-elif [[ -f "$HOME/local/include/zsh/z.sh" ]]; then
-  source "$HOME/local/include/zsh/z.sh"
+elif [[ -f "$HOME/.local/lib/sh/z.sh" ]]; then
+  source "$HOME/.local/lib/sh/z.sh"
 fi
 
 
@@ -111,7 +111,7 @@ bindkey '^x^e' edit-command-line
 
 ## Theme
 if command -v brew >/dev/null 2>&1; then
-  source "$HOME/.homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme"
+  source "$HOMEBREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
 else
   ZSH_THEME="powerlevel10k/powerlevel10k"
   source "$HOME/.oh-my-zsh/custom/themes/$ZSH_THEME.zsh-theme"
@@ -124,7 +124,7 @@ fi
 ## Java
 JENV__HOME="$HOME/.jenv"
 if command -v brew >/dev/null 2>&1; then
-  JENV__HOME="$HOME/.homebrew/Cellar/jenv/0.5.4/libexec" # no, that's right
+  JENV__HOME="$HOMEBREW_CELLAR/jenv/0.5.4/libexec" # no, that's right
 fi
 PATH="$HOME/.jenv/bin:$PATH"
 PATH="$HOME/.jenv/shims:${PATH}"
@@ -153,7 +153,7 @@ jenv() {
 ## Ruby
 RBENV__HOME="/usr/lib/rbenv"
 if command -v brew >/dev/null 2>&1; then
-  RBENV__HOME="$HOME/.homebrew/Cellar/rbenv/1.1.2"
+  RBENV__HOME="$HOMEBREW_CELLAR/rbenv/1.1.2"
 fi
 PATH="$HOME/.rbenv/bin:$PATH"
 PATH="$HOME/.rbenv/shims:${PATH}"
@@ -179,7 +179,7 @@ rbenv() {
 ## Python
 PYENV__HOME="$HOME/.pyenv"
 if command -v brew >/dev/null 2>&1; then
-  PYENV__HOME="$HOME/.homebrew/Cellar/pyenv/1.2.27"
+  PYENV__HOME="$HOMEBREW_CELLAR/pyenv/1.2.27"
 fi
 PATH="$HOME/.pyenv/shims:${PATH}"
 PYENV_SHELL=zsh
@@ -208,12 +208,13 @@ fi
 
 
 ## Dotfiles
-PATH="$HOME/local/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
 
 
 ## Aliases
-source "$HOME/local/include/zsh/aliases.sh"
+source "$HOME/.local/lib/sh/aliases.sh"
 
 
 ## Variables
-source "$HOME/local/include/zsh/variables.sh"
+source "$HOME/.local/lib/sh/variables.sh"
+
