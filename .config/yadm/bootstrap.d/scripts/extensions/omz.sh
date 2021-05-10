@@ -188,7 +188,7 @@ omz_change_shell() {
   if [[ "$SHELL" != "/bin/zsh" ]]; then
     dot_ext_puts "Changing shell to zsh.."
     dot_ext_dryrun chsh -s "\$(which zsh)"
-    if [[ "$(dot_ext_is_dryun)" != $DOT_TRUE ]]; then
+    if [[ "$(dot_ext_is_dryrun)" != $DOT_TRUE ]]; then
       chsh -s "$(which zsh)"
     fi
     if [[ $? -ne 0 ]]; then
