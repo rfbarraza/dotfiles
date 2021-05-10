@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 
-./scripts/install.sh -E extensions/vim.sh:vim_loader -E extensions/omz.sh:omz_loader
+SCRIPT="$(basename "${BASH_SOURCE[0]}")"
+BOOTSTRAP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPTS_DIR="$BOOTSTRAP_DIR/scripts"
+EXTENSIONS_DIR="$SCRIPTS_DIR/extensions"
+
+$SCRIPTS_DIR/install.sh \
+  -E $EXTENSIONS_DIR/vim.sh:vim_loader \
+  -E $EXTENSIONS_DIR/omz.sh:omz_loader \
+  -E $EXTENSIONS_DIR/brew/brew.sh:brew_loader
