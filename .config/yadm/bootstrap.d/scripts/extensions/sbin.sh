@@ -100,6 +100,7 @@ sbin_link() {
               -L "$HOME/.local/sbin/$script_name" ]]; then
           dot_ext_puts_info "$script_name already linked."
         else
+          mkdir -p "$HOME/.local/sbin"
           dot_ext_puts_info "Linking $script"
           dot_ext_dryrun ln -s "$script" "$HOME/.local/sbin/$script_name"
           if [[ "$(dot_ext_is_dryrun)" != $DOT_EXT_TRUE ]]; then
