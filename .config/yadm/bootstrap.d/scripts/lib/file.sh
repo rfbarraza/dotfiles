@@ -199,14 +199,14 @@ dot_file_ensure_symlink_installed() {
   fi
   case $? in
     0)
-      dot_puts "$symlink is already linked to dotfiles installation."
+      dot_puts_info "$symlink is already linked to dotfiles installation."
       ;;
     1)
       if [[ $DOT_IS_FORCE == $DOT_TRUE ]]; then
         local readonly backup="$(dot_file_backup "$symlink")"
         local readonly backup_result="$?"
         if [[ $? ]]; then
-          dot_puts "Backing up $symlink to $backup."
+          dot_puts_info "Backing up $symlink to $backup."
           dot_puts "Linking $target via $symlink."
           dot_file_install_symlink "$target" "$symlink"
           if [[ ! $? ]]; then

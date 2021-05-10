@@ -137,6 +137,25 @@ dot_ext_restore() {
   dot_file_restore_backup "$1" "$2"
 }
 
+#######################################
+# Creates a symlink to a target file or dir
+#
+# Arguments:
+#   Path to symlink
+#   Path to target for symlink
+######################################
+dot_ext_symlink() {
+  local readonly symlink="$1"
+  local readonly target="$2"
+
+  if [[ -d "$target" ]]; then
+    dot_dir_ensure_symlink_installed "$symlink" "$target"
+  else
+    dot_file_ensure_symlink_installed "$symlink" "$target"
+  fi
+}
+
+
 ## Events
 
 # Software packages

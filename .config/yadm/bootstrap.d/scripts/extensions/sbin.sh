@@ -87,6 +87,7 @@ sbin_loader() {
 sbin_link() {
   local readonly dirs=( "sh" "zsh" )
 
+  mkdir -p "$HOME/.local/sbin"
   for dir in ${dirs[@]}; do
     local readonly dir_path="$HOME/.local/lib/$dir"
     local readonly found="$(find "$dir_path" -maxdepth 1 \( -type f -o -type l \) | sort )"
@@ -96,17 +97,7 @@ sbin_link() {
     for script in ${scripts[@]}; do
       if [[ -x "$script" ]]; then
         local readonly script_name="$(basename "$script")"
-        if [[ -f "$HOME/.local/sbin/$script_name" ||
-              -L "$HOME/.local/sbin/$script_name" ]]; then
-          dot_ext_puts_info "$script_name already linked."
-        else
-          mkdir -p "$HOME/.local/sbin"
-          dot_ext_puts_info "Linking $script"
-          dot_ext_dryrun ln -s "$script" "$HOME/.local/sbin/$script_name"
-          if [[ "$(dot_ext_is_dryrun)" != $DOT_EXT_TRUE ]]; then
-            ln -s "$script" "$HOME/.local/sbin/$script_name"
-          fi
-        fi
+        dot_ext_symlink "$HOME/.local/sbin/$script_name" "$script"
       fi
     done
   done
