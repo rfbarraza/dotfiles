@@ -1,0 +1,5 @@
+.config/yadm/alt/.ssh/*.key*
+.config/yadm/alt/.ssh/id_rsa*
+.config/yadm/alt/.ssh/id_rsa.pub*
+.config/yadm/alt/.ssh/authorized_keys*
+.config/yadm/alt/.ssh/known_hosts*

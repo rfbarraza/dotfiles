@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+##############################################################################
+#                                                                            #
+# ░█▀▀░█░█░░░░░█░█░█▀▀░█▀█░█▀▄░█▀▀░█▀▄                                       #
+# ░▀▀█░█▀█░░░░░█▀█░█▀▀░█▀█░█░█░█▀▀░█▀▄                                       #
+# ░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀░░▀▀▀░▀░▀                                       #
+#                                                                            #
+#                                                                            #
+# Print headers for shell scripts                                            #
+#                                                                            #
+##############################################################################
+
+parseargs() {
+  # Defaults
+  WIDTH=78
+  NAME=""
+  DESC=""
+
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    local key="$1"
+    case "$key" in
+      "-n"|"--name")
+      NAME="$2"
+      shift
+      shift
+      ;;
+      "-d"|"--desc")
+      DESC="$2"
+      shift
+      shift
+      ;;
+      "-w"|"--width")
+      WIDTH="$2"
+      shift
+      shift
+      ;;
+    esac
+  done
+}
+
+main() {
+  parseargs $@
+
+  local tmpfile=$(mktemp)
+  toilet -f pagga "$NAME" > "$tmpfile"
+  echo " " >> "$tmpfile"
+  echo " " >> "$tmpfile"
+  local fmt_width=$(bc -l <<< "$WIDTH - 4")
+  echo "$DESC" | fmt -w "$fmt_width" >> "$tmpfile"
+  cat "$tmpfile" |  boxes -d shell -s "$WIDTH" -p a1
+  rm "$tmpfile"
+}
+
+main $@

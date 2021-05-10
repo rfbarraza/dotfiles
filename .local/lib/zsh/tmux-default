@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+tmux has-session -t default
+if [ $? != 0 ] 
+then
+    tmux new-session -s default -n workspace -d
+
+    tmux split-window -h -t default
+    tmux send-keys -t default 'cd' C-m
+    tmux send-keys -t default 'clear' C-m
+    tmux split-window -v -t default
+    tmux send-keys -t default 'cd' C-m
+    tmux send-keys -t default 'clear' C-m
+    
+    tmux new-window -n logs -t default
+    tmux send-keys -t default 'cd' C-m
+    tmux send-keys -t default 'clear' C-m
+    tmux split-window -h -t default:2
+    tmux send-keys -t default 'cd' C-m
+    tmux send-keys -t default 'clear' C-m
+
+    tmux new-window -n etc -t default
+    tmux send-keys -t default:3 'cd' tmux send-keys -t default C-m
+    tmux send-keys -t default:3 'clear' tmux send-keys -t default C-m
+    tmux split-window -h -t default:3
+    tmux send-keys -t default:3 'cd' tmux send-keys -t default C-m
+    tmux send-keys -t default:3 'clear' tmux send-keys -t default C-m
+
+    tmux new-window -n shell -t default
+fi
+tmux  select-window -t default:1
+tmux select-pane -t 1
+tmux attach -t default

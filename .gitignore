@@ -1,0 +1,63 @@
+# ---
+# TOC
+# ---
+#
+# ## Temp
+# ## OS
+# ## Build
+# ## SCM
+# ## IDE
+# ## Node
+# ## Dev
+#
+
+
+## Temp
+*~
+*.orig
+*.rej
+*.swp
+.#*
+
+
+## OS
+
+# macOS
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+
+# Windows
+ehthumbs.db
+Thumbs.db
+._*
+
+
+## Build
+.output
+.log
+
+
+## SCM
+.git
+CVS
+.svn
+.hg
+
+
+## IDE
+.vscode
+.code-workspace
+
+
+## Node
+node_modules/
+.npmrc
+.pnp
+.pnp.js
+
+## Dev
+.cache
+.env
+coverage

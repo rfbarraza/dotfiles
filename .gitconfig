@@ -1,0 +1,15 @@
+[core]
+	excludesfile = ~/.gitignore
+[user]
+	name = Rene Barraza
+	email = rfbarraza@gmail.com
+[color]
+	ui = auto
+[push]
+	default = simple
+[alias]
+	credit = blame
+[init]
+	defaultBranch = main
+[include]
+  path = .gitconfig.local

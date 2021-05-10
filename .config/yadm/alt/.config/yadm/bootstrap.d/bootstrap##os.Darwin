@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./scripts/install.sh -E extensions/vim.sh:vim_loader -E extensions/omz.sh:omz_loader

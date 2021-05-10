@@ -1,0 +1,65 @@
+#!/usr/bin/env zsh
+
+set -u
+
+USAGE="Usage `basename $0` [-hfd] files\n
+\n
+\t-h\tDisplay this help\n
+\t-f\tDisplay the filename in output\n
+\t-d DOMAIN\tchecks if the file is from the given domain"
+
+PREFIX=""
+DOMAIN=""
+SUFFIX="\n"
+
+while getopts hfd: OPT; do
+	case "$OPT" in
+		h) 
+			echo $USAGE
+			exit 0
+			;;
+		f)
+			PREFIX='$file'
+			;;
+		d)
+			DOMAIN="$OPTARG"
+			;;
+		\?)
+			echo $USAGE >&2
+			exit 1
+			;;
+	esac
+done
+
+shift `expr $OPTIND - 1`
+
+function printPrefix() {
+	if [ ! -z "$PREFIX" ]; then
+		echo "$file: \c"
+	fi
+}
+
+if [ $# -eq 0 ]; then
+	echo $USAGE >&2
+	exit 1
+fi
+
+for file in "$@"; do
+	hexFromText="$(xattr -p com.apple.metadata:kMDItemWhereFroms "$file"  2>&1)" # | xxd -r -p 2>&1)"
+	if [ ! $? -eq 0 ]; then
+		printPrefix
+		echo "xattr kMDItemWhereFroms does not exist"
+		exit 1
+	fi
+
+	fromText="$(echo \"$hexFromText\" | xxd -r -p | plutil -convert xml1 -o - - | xmllint --xpath '/plist/array/string/text()' - )"
+	printPrefix
+	echo "$fromText"
+	
+	if [ ! -z "$DOMAIN" ]; then
+		if [[ $fromText =~ $DOMAIN ]]; then
+			exit 0
+		fi
+		exit 1
+	fi
+done
