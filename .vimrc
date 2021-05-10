@@ -139,7 +139,7 @@ Plug 'tpope/vim-surround'
 
 let OS=substitute(system('uname -s'),"\n","","")
 if (OS == 'Linux')
-  let DISTRO_ID=system("grep -e '^ID=' /etc/os-release | cut -d '=' -f2")
+  let DISTRO_ID=substitute(system("grep -e '^ID=' /etc/os-release | cut -d '=' -f2"), "\n", "", "")
   if (DISTRO_ID != 'raspbian')
     Plug 'valloric/youcompleteme'
   endif
