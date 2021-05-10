@@ -136,7 +136,17 @@ Plug 'junegunn/fzf'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'valloric/youcompleteme'
+
+let OS=substitute(system('uname -s'),"\n","","")
+if (OS == 'Linux')
+  let DISTRO_ID=system("grep -e '^ID=' /etc/os-release | cut -d '=' -f2")
+  if (DISTRO_ID != 'raspbian')
+    Plug 'valloric/youcompleteme'
+  endif
+else
+  Plug 'valloric/youcompleteme'
+endif
+
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 
