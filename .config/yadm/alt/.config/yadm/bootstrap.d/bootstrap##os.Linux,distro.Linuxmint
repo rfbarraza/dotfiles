@@ -12,5 +12,4 @@ $SCRIPTS_DIR/install.sh \
   -E $EXTENSIONS_DIR/apt/apt.sh:apt_loader \
   -E $EXTENSIONS_DIR/brew/brew.sh:brew_loader \
   -E $EXTENSIONS_DIR/jenv.sh:jenv_loader \
-  -E $EXTENSIONS_DIR/pyenv.sh:pyenv_loader \
-  -E $EXTENSIONS_DIR/rbenv.sh:rbenv_loader
+  -E $EXTENSIONS_DIR/pyenv.sh:pyenv_loader
