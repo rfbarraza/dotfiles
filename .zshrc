@@ -181,7 +181,8 @@ PYENV__HOME="$HOME/.pyenv"
 if command -v brew >/dev/null 2>&1; then
   PYENV__HOME="$HOMEBREW_CELLAR/pyenv/1.2.27"
 fi
-PATH="$HOME/.pyenv/shims:${PATH}"
+PYENV_ROOT="$PYENV__HOME"
+PATH="$PYENV_ROOT/bin:${PATH}"
 PYENV_SHELL=zsh
 source "$PYENV__HOME/libexec/../completions/pyenv.zsh"
 command pyenv rehash 2>/dev/null
