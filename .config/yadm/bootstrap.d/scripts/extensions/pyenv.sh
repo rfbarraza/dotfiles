@@ -80,7 +80,7 @@ fi
 
 
 ## Extension Functionality
-PYENV_DIR="$HOME/.PYENV"
+PYENV_DIR="$HOME/.pyenv"
 PYENV_URL="https://github.com/pyenv/pyenv.git"
 
 pyenv_loader() {
@@ -120,7 +120,5 @@ pyenv_install() {
 
   dot_ext_unsubscribe "$DOT_WILL_SETUP_SOFTWARE_EVENT"
 }
-
-
 
 fi
