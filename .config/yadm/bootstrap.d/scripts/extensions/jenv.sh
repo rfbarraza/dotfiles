@@ -112,8 +112,8 @@ jenv_install_jenv() {
 
 jenv_install() {
   dot_ext_puts "Performing jenv installation..."
-  if [[ ! -d "$JENV_DIR" ]]; then
-    dot_ext_warn "$JENV_DIR is not a directory"
+  if [[ -d "$JENV_DIR" ]]; then
+    dot_ext_puts_info "Already installed."
     return
   fi
   jenv_install_jenv
