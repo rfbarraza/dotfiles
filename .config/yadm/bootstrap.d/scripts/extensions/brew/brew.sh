@@ -283,7 +283,7 @@ brew_install_formulae_dir() {
 
 ## Callbacks
 brew_install_all() {
-  dot_ext_puts_info "Performing Homebrew installation..."
+  dot_ext_puts "Performing Homebrew installation..."
   brew_init
   if [[ ! -d "$BREW_FORMULAE_DIR" ]]; then
     dot_ext_warn "$BREW_FORMULAE_DIR is not a directory"
@@ -293,7 +293,9 @@ brew_install_all() {
     brew_install_pl10k
     brew_install_formulae_dir "$BREW_FORMULAE_DIR"
   fi
-  dot_ext_puts_info "Done performing Homebrew installation."
+  dot_ext_puts "Done performing Homebrew installation."
+
+  dot_ext_unsubscribe "$DOT_DO_INSTALL_BREW_FORMULAE_EVENT"
 }
 
 fi

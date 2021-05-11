@@ -113,11 +113,11 @@ jenv_install_jenv() {
 jenv_install() {
   dot_ext_puts "Performing jenv installation..."
   if [[ -d "$JENV_DIR" ]]; then
-    dot_ext_puts_info "Already installed."
+    dot_ext_puts "Already installed."
     return
   fi
   jenv_install_jenv
-  dot_ext_puts_info "Done performing jenv installation."
+  dot_ext_puts "Done performing jenv installation."
 
   dot_ext_unsubscribe "$DOT_WILL_SETUP_SOFTWARE_EVENT"
 }

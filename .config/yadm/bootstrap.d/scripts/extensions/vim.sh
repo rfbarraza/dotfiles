@@ -107,9 +107,9 @@ vim_plug_backup() {
         VIM_PLUG_BACKUP="$(dot_ext_backup "$VIM_AUTOLOAD_DIR")"
       fi
     else
-      dot_ext_warn "$VIM_AUTOLOAD_DIR already exists."
+      dot_ext_puts "$VIM_AUTOLOAD_DIR already exists."
       if [[ -f "$VIM_PLUG" ]]; then
-        dot_ext_warn "$VIM_PLUG already exists."
+        dot_ext_puts "$VIM_PLUG already exists."
         return 1
       fi
     fi
@@ -140,17 +140,18 @@ vim_plug_init() {
 }
 
 vim_plug_install() {
-  dot_ext_puts "Installing vim-plug..."
+  dot_ext_puts "Performing vim-plug installation..."
 
   local should_restore=$DOT_EXT_FALSE
   if vim_plug_backup; then
     if vim_plug_download && vim_plug_init; then
-      dot_ext_puts "vim-plug installed."
+      dot_ext_puts_info "vim-plug installed."
     else
       dot_ext_warn "vim-plug was not installed."
       should_restore=$DOT_EXT_TRUE
     fi
   else
+    dot_ext_puts "Done performing vim-plug installation."
     dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
     return
   fi
@@ -158,6 +159,8 @@ vim_plug_install() {
   if [[ "$should_restore" == $DOT_EXT_TRUE ]]; then
     vim_plug_restore_backup
   fi
+
+  dot_ext_puts "Done performing vim-plug installation."
 
   dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
   dot_ext_subscribe "$DOT_WILL_CLEANUP_EVENT" vim_plug_cleanup "$VIM_NAME"

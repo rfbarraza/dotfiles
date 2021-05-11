@@ -233,7 +233,7 @@ apt_install_packages_dir() {
 ## Callbacks
 
 apt_install_all() {
-  dot_ext_puts_info "Performing apt installation..."
+  dot_ext_puts "Performing apt installation..."
   if [[ ! -d "$APT_PKG_DIR" ]]; then
     dot_ext_warn "$APT_PKG_DIR is not a directory"
     return
@@ -241,7 +241,9 @@ apt_install_all() {
   if apt_update; then
     apt_install_packages_dir "$APT_PKG_DIR"
   fi
-  dot_ext_puts_info "Done performing apt installation."
+  dot_ext_puts "Done performing apt installation."
+
+  dot_ext_unsubscribe "$DOT_DO_INSTALL_APT_PACKAGES_EVENT"
 }
 
 fi

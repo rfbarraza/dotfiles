@@ -126,7 +126,6 @@ omz_backup() {
         OMZ_BACKUP="$(dot_ext_backup "$OMZ_DEST")"
       fi
     else
-      dot_ext_warn "Oh My Zsh is already installed."
       return 1
     fi
   fi
@@ -154,7 +153,7 @@ omz_download() {
 }
 
 omz_install() {
-  dot_ext_puts "Installing Oh My Zsh..."
+  dot_ext_puts "Performing Oh My Zsh installation..."
 
   local should_restore=$DOT_EXT_FALSE
   if omz_backup; then
@@ -165,6 +164,7 @@ omz_install() {
       should_restore=$DOT_EXT_TRUE
     fi
   else
+    dot_ext_puts "Oh My Zsh is already installed."
     dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
     return
   fi
@@ -172,6 +172,8 @@ omz_install() {
   if [[ $should_restore == $DOT_EXT_TRUE ]]; then
     omz_restore_backup
   fi
+
+  dot_ext_puts "Done performing Oh My Zsh installation."
 
   dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
   dot_ext_subscribe "$DOT_WILL_CLEANUP_EVENT" omz_cleanup "$OMZ_NAME"
@@ -213,7 +215,6 @@ omz_backup_pl10k() {
         OMZ_PL10K_BACKUP="$(dot_ext_backup "$OMZ_PL10K_DEST")"
       fi
     else
-      dot_ext_warn "Powerlevel10k is already installed."
       return 1
     fi
   fi
@@ -236,7 +237,7 @@ omz_download_pl10k() {
 }
 
 omz_install_pl10k() {
-  dot_ext_puts "Installing Powerlevel10k..."
+  dot_ext_puts "Performing Powerlevel10k installation..."
 
   local should_restore=$DOT_EXT_FALSE
   if omz_backup_pl10k; then
@@ -246,6 +247,8 @@ omz_install_pl10k() {
       dot_ext_warn "Powerlevel10k failed to install."
       should_restore=$DOT_EXT_TRUE
     fi
+  else
+    dot_ext_puts "Powerlevel10k is already installed."
   fi
 
   if [[ $should_restore == $DOT_EXT_TRUE ]]; then
@@ -253,6 +256,8 @@ omz_install_pl10k() {
     dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
     return
   fi
+
+  dot_ext_puts "Done performing Powerlevel10k installation."
 
   dot_ext_unsubscribe "$DOT_DO_SETUP_SOFTWARE_EVENT"
   dot_ext_subscribe "$DOT_WILL_CLEANUP_EVENT" omz_pl10k_cleanup "$OMZ_NAME"

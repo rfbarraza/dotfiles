@@ -112,11 +112,11 @@ pyenv_install_pyenv() {
 pyenv_install() {
   dot_ext_puts "Performing pyenv installation..."
   if [[ -d "$PYENV_DIR" ]]; then
-    dot_ext_puts_info "Already installed."
+    dot_ext_puts "Already installed."
     return
   fi
   pyenv_install_pyenv
-  dot_ext_puts_info "Done performing pyenv installation."
+  dot_ext_puts "Done performing pyenv installation."
 
   dot_ext_unsubscribe "$DOT_WILL_SETUP_SOFTWARE_EVENT"
 }
