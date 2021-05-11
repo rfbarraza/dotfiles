@@ -81,7 +81,7 @@ fi
 
 ## Extension Functionality
 PYENV_DIR="$HOME/.PYENV"
-JENV_URL="https://github.com/pyenv/pyenv.git"
+PYENV_URL="https://github.com/pyenv/pyenv.git"
 
 pyenv_loader() {
   dot_ext_subscribe "$DOT_WILL_SETUP_SOFTWARE_EVENT" pyenv_install "$PYENV_NAME"
