@@ -96,9 +96,9 @@ jenv_install_jenv() {
   fi
 
   dot_ext_puts_info "Installing jenv..."
-  dot_ext_dryrun git clone "$JENV_URL" "$JENV_DEST"
+  dot_ext_dryrun git clone "$JENV_URL" "$JENV_DIR"
   if [[ "$(dot_ext_is_dryrun)" != $DOT_EXT_TRUE ]]; then
-    if git clong "$JENV_URL" "$JENV_DEST"; then
+    if git clone "$JENV_URL" "$JENV_DIR"; then
       dot_ext_puts "jenv installed at $JENV_DIR"
     else
       dot_ext_warn "jenv installation failed."
