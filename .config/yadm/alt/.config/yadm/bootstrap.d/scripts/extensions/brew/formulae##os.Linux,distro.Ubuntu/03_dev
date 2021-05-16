@@ -1,3 +1,4 @@
+gcc
 bashdb
 zshdb
 python
@@ -9,4 +10,3 @@ rbenv
 jenv
 lua
 node
-pypy
