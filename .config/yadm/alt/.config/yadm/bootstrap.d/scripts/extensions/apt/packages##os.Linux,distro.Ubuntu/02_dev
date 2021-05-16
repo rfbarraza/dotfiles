@@ -1,2 +1,5 @@
+build-essential
 llvm
+clang
+gcc
 g++
