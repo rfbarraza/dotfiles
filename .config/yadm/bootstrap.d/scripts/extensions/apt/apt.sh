@@ -83,11 +83,11 @@ fi
 
 
 ## Extension functionality
-readonly APT_GET="apt-get"
-readonly APT_LIST="$APT_GET list"
-readonly APT_UPDATE="$APT_GET update"
-readonly APT_UPGRADE="$APT_GET upgrade"
-readonly APT_INSTALL="$APT_GET install"
+readonly APT_CMD="apt-get"
+readonly APT_LIST="list"
+readonly APT_UPDATE="update"
+readonly APT_UPGRADE="upgrade"
+readonly APT_INSTALL="install"
 readonly APT_ASSUME_YES="--assume-yes"
 readonly APT_INSTALLED="--installed"
 readonly APT_PKG_DIR="$API_DIR/extensions/apt/packages/"
@@ -101,9 +101,9 @@ apt_loader() {
 ## Update
 apt_update() {
   dot_ext_puts_info "Updating..."
-  dot_ext_dryrun sudo ${APT_UPDATE} ${APT_ASSUME_YES}
+  dot_ext_dryrun sudo ${APT_CMD} ${APT_UPDATE} ${APT_ASSUME_YES}
   if [[ "$(dot_ext_is_dryrun)" != $DOT_EXT_TRUE ]]; then
-    sudo ${APT_UPDATE} ${APT_ASSUME_YES}
+    sudo ${APT_CMD} ${APT_UPDATE} ${APT_ASSUME_YES}
   fi
   dot_ext_puts_info "Done updating."
   return 0
@@ -121,7 +121,7 @@ apt_is_package_installed() {
   if [[ -n "$cache" ]]; then
     grep -o "^$pkg/" "$cache" > /dev/null 2>&1
   else
-    ${APT_LIST} ${APT_INSTALLED} 2> /dev/null | grep -o "^$pkg/"
+    ${APT_CMD} ${APT_LIST} ${APT_INSTALLED} 2> /dev/null | grep -o "^$pkg/"
   fi
 }
 
@@ -157,7 +157,7 @@ apt_filter_not_installed_packages_file() {
 
   if [[ -z "$cache" ]]; then
     cache="$(mktemp)"
-    ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
+    ${APT_CMD} ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
   fi
 
   local readonly not_installed="$(apt_filter_not_installed_packages \
@@ -180,9 +180,9 @@ apt_install_packages() {
   local IFS=' '
   read -r -a pkgs_array <<< "$pkgs"
 
-  dot_ext_dryrun sudo ${APT_INSTALL} ${APT_ASSUME_YES} "${pkgs_array[@]}"
+  dot_ext_dryrun sudo ${APT_CMD} ${APT_INSTALL} ${APT_ASSUME_YES} "${pkgs_array[@]}"
   if [[ "$(dot_ext_is_dryrun)" != $DOT_EXT_TRUE ]]; then
-    sudo ${APT_INSTALL} ${APT_ASSUME_YES} "${pkgs_array[@]}"
+    sudo ${APT_CMD} ${APT_INSTALL} ${APT_ASSUME_YES} "${pkgs_array[@]}"
   fi
   dot_ext_puts_info "Done installing $pkgs_label."
 }
@@ -215,14 +215,14 @@ apt_install_packages_dir() {
   local pkg_files_array=()
   read -r -d '' -a pkg_files_array <<< "$pkg_files"
   local cache="$(mktemp)"
-  ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
+  ${APT_CMD} ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
   for pkg_file in ${pkg_files_array[@]}; do
     local readonly file="$pkg_dir/$pkg_file"
     local readonly label="$(echo $pkg_file | sed 's/[0-9]*_//g')"
     if apt_install_packages_file "$file" "$label" "$cache"; then
       rm "$cache"
       local cache="$(mktemp)"
-      ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
+      ${APT_CMD} ${APT_LIST} ${APT_INSTALLED} > "$cache" 2> /dev/null
     fi
   done
   rm "$cache"
