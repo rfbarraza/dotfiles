@@ -105,18 +105,18 @@ gcc_update_alts() {
   fi
 
   if [[ "$(dot_ext_is_dryrun)" == $DOT_EXT_FALSE ]]; then
-    sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
-    sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
-    sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
-    sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
+    sudo ${ua_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
+    sudo ${ua_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
+    sudo ${ua_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
+    sudo ${ua_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
 
     sudo ${ua_cmd} ${conifg} ${gcc}
     sudo ${ua_cmd} ${conifg} ${gpp}
   else
-    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
-    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
-    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
-    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
+    dot_ext_dryrun sudo ${ua_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
+    dot_ext_dryrun sudo ${ua_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
+    dot_ext_dryrun sudo ${ua_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
+    dot_ext_dryrun sudo ${ua_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
 
     dot_ext_dryrun sudo ${ua_cmd} ${conifg} ${gcc}
     dot_ext_dryrun sudo ${ua_cmd} ${conifg} ${gpp}
