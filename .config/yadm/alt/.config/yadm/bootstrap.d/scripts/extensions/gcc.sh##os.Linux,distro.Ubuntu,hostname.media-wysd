@@ -93,7 +93,7 @@ gcc_update_alts() {
   local readonly gcc="gcc"
   local readonly usr_gcc="/usr/bin/gcc"
   local readonly gpp="g++"
-  local readonly usr_gpp"/usr/bin/g++"
+  local readonly usr_gpp="/usr/bin/g++"
 
   dot_ext_puts "Configuring multiple version of gcc and g++ on the system..."
 
