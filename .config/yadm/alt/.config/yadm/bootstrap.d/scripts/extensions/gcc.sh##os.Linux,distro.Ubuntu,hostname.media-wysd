@@ -1,0 +1,127 @@
+#!/usr/bin/env sh
+
+##############################################################################
+#                                                                            #
+# ░█▀▀░█▀▀░█▀▀░░░░█▀▀░█░█                                                    #
+# ░█░█░█░░░█░░░░░░▀▀█░█▀█                                                    #
+# ░▀▀▀░▀▀▀░▀▀▀░▀░░▀▀▀░▀░▀                                                    #
+#                                                                            #
+##############################################################################
+
+
+# ---
+# TOC
+# ---
+#
+# ## Script Extension
+# ## Extension Functionality
+#
+
+if [[ -z "$__GCC_EXTENSION__" ]]; then
+readonly __GCC_EXTENSION__="__GCC_EXTENSION__"
+
+## Script Extension
+readonly GCC_SCRIPT="$(basename "${BASH_SOURCE[0]}")"
+readonly GCC_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly GCC_NAME="gcc"
+readonly GCC_VERSION="0.1.0"
+
+gcc_print_version() {
+  echo "$GCC_VERSION"
+}
+
+gcc_print_usage() {
+  cat << USAGE
+Usage: $GCC_SCRIPT [-V VERSION] [-v] [-h]
+  -V  VERSION of dotfiles to verify this extension will work with
+  -v  Print the version of this extension
+  -h  Print usage and help
+USAGE
+}
+
+gcc_verify_version() {
+  local version="$1"
+  local major_version="$(echo "$version" | grep -o "^[1-9][0-9]*" )"
+  local minor_version="$(echo "$version" | sed -r "s/^$major_version.//" | \
+    grep -o "^[1-9][0-9]*" )"
+  if [[ major_version -lt 1 && minor_version -lt 2 ]]; then
+    exit 0
+  else
+    exit 1
+  fi
+}
+
+gcc_parse_args() {
+  while getopts :V:vh opt; do
+    case "$opt" in
+      V)
+        gcc_verify_version "$OPTARG"
+        ;;
+      v)
+        gcc_print_version
+        ;;
+      h)
+        gcc_print_usage
+        ;;
+      [?])
+        gcc_print_usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+gcc_main() {
+  gcc_parse_args "$@"
+}
+
+if [[ "$(basename "$0")" == "$GCC_SCRIPT" ]]; then
+  gcc_main "$@"
+  exit 0
+fi
+
+
+## Extension Functionality
+gcc_loader() {
+  dot_ext_subscribe "$DOT_DID_INSTALL_APT_PACKAGES_EVENT" gcc_update_alts "$GCC_NAME"
+}
+
+gcc_update_alts() {
+  local readonly ua_cmd="update-alternatives"
+  local readonly config="--config"
+  local readonly install="--install"
+  local readonly gcc="gcc"
+  local readonly usr_gcc="/usr/bin/gcc"
+  local readonly gpp="g++"
+  local readonly usr_gpp"/usr/bin/g++"
+
+  dot_ext_puts "Configuring multiple version of gcc and g++ on the system..."
+
+  if [[ -f "/usr/bin/gcc-10" ]]; then
+    dot_ext_puts_info "update-alternative already configured for GCC-10."
+    dot_ext_puts_info "Okay to skip."
+    dot_ext_puts "Done configuring multiple versions of gcc and g++ on the system."
+    return
+  fi
+
+  if [[ "$(dot_ext_is_dryrun)" == $DOT_EXT_FALSE ]]; then
+    sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
+    sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
+    sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
+    sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
+
+    sudo ${ua_cmd} ${conifg} ${gcc}
+    sudo ${ua_cmd} ${conifg} ${gpp}
+  else
+    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-9 9
+    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-9 9
+    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gcc} ${gcc} ${usr_gcc}-10 10
+    dot_ext_dryrun sudo ${us_cmd} ${install} ${usr_gpp} ${gpp} ${usr_gpp}-10 10
+
+    dot_ext_dryrun sudo ${ua_cmd} ${conifg} ${gcc}
+    dot_ext_dryrun sudo ${ua_cmd} ${conifg} ${gpp}
+  fi
+}
+dot_ext_puts "Done configuring multiple versions of gcc and g++ on the system."
+
+fi
