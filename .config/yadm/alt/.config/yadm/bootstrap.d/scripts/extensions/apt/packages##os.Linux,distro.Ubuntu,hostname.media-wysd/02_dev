@@ -3,3 +3,7 @@ llvm
 clang
 gcc
 g++
+gcc-9
+g++-9
+gcc-10
+g++-10
