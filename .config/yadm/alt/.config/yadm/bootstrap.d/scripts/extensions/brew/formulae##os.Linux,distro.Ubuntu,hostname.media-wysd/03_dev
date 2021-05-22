@@ -1,6 +1,6 @@
 bashdb
 zshdb
-python
+python@3.9
 pyenv
 ipython
 perl
