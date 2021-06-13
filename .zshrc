@@ -24,7 +24,6 @@
 # ## Ruby
 # ## Python
 # ## Bashhub
-# ## Dotfiles
 # ## Aliases
 # ## Variables
 #
@@ -72,12 +71,12 @@ PATH="/opt/local/sbin:$PATH"
 PATH="/opt/local/bin:$PATH"
 
 # User Homebrew
-PATH="$HOMEBREW_CELLAR:$PATH"
-PATH="$HOMEBREW_PREFIX/bin:$PATH"
+PATH="$HOME/.homebrew/Cellar:$PATH"
+PATH="$HOME/.homebrew/bin:$PATH"
 
 # dotfiles (assumes local location)
-PATH="$HOME/.local/sbin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.local/sbin:$PATH"
 
 # ... and finally, pwd
 PATH="./:$PATH"
@@ -111,7 +110,7 @@ bindkey '^x^e' edit-command-line
 
 ## Theme
 if command -v brew >/dev/null 2>&1; then
-  source "$HOMEBREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
+  source "$HOME/.homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme"
 else
   ZSH_THEME="powerlevel10k/powerlevel10k"
   source "$HOME/.oh-my-zsh/custom/themes/$ZSH_THEME.zsh-theme"
@@ -124,7 +123,8 @@ fi
 ## Java
 JENV__HOME="$HOME/.jenv"
 if command -v brew >/dev/null 2>&1; then
-  JENV__HOME="$HOMEBREW_CELLAR/jenv/0.5.4/libexec" # no, that's right
+  JENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/jenv | sort |  tail -1)"  
+  JENV__HOME="$HOME/.homebrew/Cellar/jenv/$JENV__LAST_VERS/libexec" # no, that's right
 fi
 PATH="$HOME/.jenv/bin:$PATH"
 PATH="$HOME/.jenv/shims:${PATH}"
@@ -153,7 +153,8 @@ jenv() {
 ## Ruby
 RBENV__HOME="/usr/lib/rbenv"
 if command -v brew >/dev/null 2>&1; then
-  RBENV__HOME="$HOMEBREW_CELLAR/rbenv/1.1.2"
+  RBENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/rbenv | sort |  tail -1)"
+  RBENV__HOME="$HOME/.homebrew/Cellar/rbenv/$RBENV__LAST_VERS"
 fi
 PATH="$HOME/.rbenv/bin:$PATH"
 PATH="$HOME/.rbenv/shims:${PATH}"
@@ -179,10 +180,10 @@ rbenv() {
 ## Python
 PYENV__HOME="$HOME/.pyenv"
 if command -v brew >/dev/null 2>&1; then
-  PYENV__HOME="$HOMEBREW_CELLAR/pyenv/1.2.27"
+  PYENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/pyenv | sort |  tail -1)"
+  PYENV__HOME="$HOME/.homebrew/Cellar/pyenv/$PYENV__LAST_VERS"
 fi
-PYENV_ROOT="$PYENV__HOME"
-PATH="$PYENV_ROOT/bin:${PATH}"
+PATH="$HOME/.pyenv/shims:${PATH}"
 PYENV_SHELL=zsh
 source "$PYENV__HOME/libexec/../completions/pyenv.zsh"
 command pyenv rehash 2>/dev/null
@@ -206,10 +207,6 @@ pyenv() {
 if [ -f "$HOME/.bashhub/bashhub.zsh" ]; then
     source "$HOME/.bashhub/bashhub.zsh"
 fi
-
-
-## Dotfiles
-PATH="$HOME/.local/bin:$PATH"
 
 
 ## Aliases
