@@ -1,0 +1,13 @@
+#! /usr/bin/env sh
+
+export WLR_BACKENDS=headless
+export WLR_LIBINPUT_NO_DEVICES=1
+export WAYLAND_DISPLAY=wayland-1
+export XDG_RUNTIME_DIR=/tmp
+export XDG_SESSION_TYPE=wayland
+
+sway &
+wayvnc -p 0.0.0.0 &
+
+exit 0 
+
