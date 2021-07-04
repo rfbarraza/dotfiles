@@ -1,0 +1,86 @@
+#! /usr/bin/env zsh
+
+##############################################################################
+#                                                                            #
+# ░█▀█░█▀█░█░█░█▀█░█░░░█▀█░█░█░▀█▀░█▀█░█▀▀░░░░█▀▀░█░█                        #
+# ░█░█░█░█░█▄█░█▀▀░█░░░█▀█░░█░░░█░░█░█░█░█░░░░▀▀█░█▀█                        #
+# ░▀░▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░░▀░░▀▀▀░▀░▀░▀▀▀░▀░░▀▀▀░▀░▀                        #
+#                                                                            #
+# Usage:                                                                     #
+#   nowplaying.sh [-o OUTPUTFILE] [-p LOOP_PERIOD_SEC] [-m MIN_WIDTH]        #
+#                                                                            #
+# Grabs what is plyaing in Youtube (Safari) or Apple Music and outputs the   #
+# media info to the specified file.                                          #
+#                                                                            #
+##############################################################################
+
+
+# Defaults
+OUTPUT=""
+LOOP_PERIOD=0
+MIN_WIDTH=0
+PATH_TO_APPLESCRIPT="$HOME/.local/lib/slobs/nowplaying.scpt"
+
+print_usage() {
+  cat << USAGE
+Usage:
+    nowplaying.sh [-o OUTPUTFILE] [-p LOOP_PERIOD_SEC] [-t TRAILING_SPACES]
+
+Grabs what is playing in YouTube (Safari) or Apple Music and outputs the media
+info. Default is stdout. Default period is 0, which means no looping. Min width
+is the minimum amount of space info should occupy with trailing spaces.
+USAGE
+}
+
+parse_args() {
+  while getopts o:p:m:h opt; do
+    case "$opt" in
+      o)
+        OUTPUT="$OPTARG"
+        ;;
+      p)
+        LOOP_PERIOD="$OPTARG"
+        ;;
+      m)
+        MIN_WIDTH="$OPTARG"
+        ;;
+      h)
+        print_usage
+        exit 0
+        ;;
+      [?])
+        print_usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+get_song() {
+  local songInfo="$(osascript "$PATH_TO_APPLESCRIPT")"
+
+  local numSpaces=$(($MIN_WIDTH - ${#songInfo}))
+  if [[ $numSpaces -lt 0 ]]; then
+    numSpaces=0
+  fi
+
+  if [[ -z "$OUTPUT" ]]; then
+    printf "$songInfo%*s" $numSpaces ""
+  else
+    printf "$songInfo%*s" $numSpaces "" > "$OUTPUT"
+  fi
+}
+
+main() {
+  parse_args "$@"
+
+  get_song "$OUTPUT"
+  while [[ LOOP_PERIOD -gt 0 ]]; do
+    sleep $LOOP_PERIOD
+    get_song "$OUTPUT"
+  done
+
+  exit 0
+}
+
+main "$@"

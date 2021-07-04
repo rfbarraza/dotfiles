@@ -87,7 +87,7 @@ sbin_loader() {
 }
 
 sbin_link() {
-  local readonly dirs=( "sh" "zsh" )
+  local readonly dirs=( "sh" "zsh" "slobs" )
 
   mkdir -p "$HOME/.local/sbin"
   for dir in ${dirs[@]}; do
