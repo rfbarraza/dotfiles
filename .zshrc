@@ -71,8 +71,8 @@ PATH="/opt/local/sbin:$PATH"
 PATH="/opt/local/bin:$PATH"
 
 # User Homebrew
-PATH="$HOME/.homebrew/Cellar:$PATH"
-PATH="$HOME/.homebrew/bin:$PATH"
+PATH="$HOMEBREW_PREFIX/Cellar:$PATH"
+PATH="$HOMEBREW_PREFIX/bin:$PATH"
 
 # dotfiles (assumes local location)
 PATH="$HOME/.local/bin:$PATH"
