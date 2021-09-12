@@ -110,7 +110,7 @@ bindkey '^x^e' edit-command-line
 
 ## Theme
 if command -v brew >/dev/null 2>&1; then
-  source "$HOME/.homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme"
+  source "$HOMEBREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
 else
   ZSH_THEME="powerlevel10k/powerlevel10k"
   source "$HOME/.oh-my-zsh/custom/themes/$ZSH_THEME.zsh-theme"
@@ -123,8 +123,8 @@ fi
 ## Java
 JENV__HOME="$HOME/.jenv"
 if command -v brew >/dev/null 2>&1; then
-  JENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/jenv | sort |  tail -1)"  
-  JENV__HOME="$HOME/.homebrew/Cellar/jenv/$JENV__LAST_VERS/libexec" # no, that's right
+  JENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/jenv | sort |  tail -1)"  
+  JENV__HOME="$HOMEBREW_PREFIX/Cellar/jenv/$JENV__LAST_VERS/libexec" # no, that's right
 fi
 PATH="$HOME/.jenv/bin:$PATH"
 PATH="$HOME/.jenv/shims:${PATH}"
@@ -153,8 +153,8 @@ jenv() {
 ## Ruby
 RBENV__HOME="/usr/lib/rbenv"
 if command -v brew >/dev/null 2>&1; then
-  RBENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/rbenv | sort |  tail -1)"
-  RBENV__HOME="$HOME/.homebrew/Cellar/rbenv/$RBENV__LAST_VERS"
+  RBENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/rbenv | sort |  tail -1)"
+  RBENV__HOME="$HOMEBREW_PREFIX/Cellar/rbenv/$RBENV__LAST_VERS"
 fi
 PATH="$HOME/.rbenv/bin:$PATH"
 PATH="$HOME/.rbenv/shims:${PATH}"
@@ -180,8 +180,8 @@ rbenv() {
 ## Python
 PYENV__HOME="$HOME/.pyenv"
 if command -v brew >/dev/null 2>&1; then
-  PYENV__LAST_VERS="$(ls -1 $HOME/.homebrew/Cellar/pyenv | sort |  tail -1)"
-  PYENV__HOME="$HOME/.homebrew/Cellar/pyenv/$PYENV__LAST_VERS"
+  PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
+  PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
 fi
 PATH="$HOME/.pyenv/shims:${PATH}"
 PYENV_SHELL=zsh
