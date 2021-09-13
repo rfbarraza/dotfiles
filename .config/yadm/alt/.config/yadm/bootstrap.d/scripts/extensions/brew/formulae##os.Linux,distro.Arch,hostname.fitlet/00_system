@@ -1,0 +1,7 @@
+i965-va-driver
+gstreamer1.0-vaapi
+vainfo
+mpv
+build-essential
+gcc-10
+g++10

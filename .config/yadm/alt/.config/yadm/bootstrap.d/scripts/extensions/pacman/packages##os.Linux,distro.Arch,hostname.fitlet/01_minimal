@@ -1,0 +1,17 @@
+base
+linux
+linux-headers
+linux-lts
+linux-lts-headers
+vi
+base-devel
+openssh
+networkmanager
+wpa_supplicant
+wireless_tools
+netctl
+dialog
+lvm2
+mesa
+git
+zsh
