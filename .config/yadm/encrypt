@@ -5,4 +5,5 @@
 .config/yadm/alt/.config/yadm/bootstrap.d/clean_decrypt*
 .config/yadm/alt/.config/containers/piracy_stack*
 .config/yadm/alt/.config/containers/wikijs*
+.config/yadm/alt/.config/containers/wg-easy*
 
