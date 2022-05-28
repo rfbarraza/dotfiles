@@ -1,0 +1,11 @@
+i965-va-driver
+gstreamer1.0-vaapi
+vainfo
+mpv
+youtube-dl
+openssh-server
+build-essential
+gcc-9
+g++9
+gcc-10
+g++10
