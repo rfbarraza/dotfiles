@@ -1,0 +1,9 @@
+[difftool "vimdiff"]
+	prompt = false
+[diff]
+	tool = vimdiff
+[mergetool "vimdiff"]
+	prompt = false
+	keepBackup = true
+[merge]
+	tool = vimdiff
