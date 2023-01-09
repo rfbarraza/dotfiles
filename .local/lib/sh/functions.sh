@@ -47,3 +47,16 @@ darwin_check() {
 linux_check() {
   grep -e "^Linux" /etc/os-release > /dev/null 2>&1
 }
+
+######################################
+# Stores the current working directory to a bookmark variable 
+# Globals:
+#   hash
+# Arguments:
+#   variable to store bookemark to 
+# Outputs:
+#   None
+#####################################
+hashcwd() {
+  hash -d "$1"="$PWD"
+}
