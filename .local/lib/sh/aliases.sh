@@ -12,7 +12,7 @@ alias gbd="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 alias ka='killall -9'
 
 alias currentdate='date "+%Y.%m.%d"'
-
+alias td='echo $(date +%Y-%m-%d)'
 alias ip="curl ipinfo.io/ip"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
