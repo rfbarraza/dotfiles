@@ -17,6 +17,8 @@
 # ## Path
 # ## Keybindings
 # ## Functions
+# ## The F
+# ## zmv
 # ## Jump Around
 # ## Inline VIM
 # ## Theme
@@ -24,6 +26,7 @@
 # ## Ruby
 # ## Python
 # ## Bashhub
+# ## Plugins
 # ## Aliases
 # ## Variables
 #
@@ -88,6 +91,12 @@ bindkey '^R' history-incremental-search-backward
 
 ## Functions
 source "$HOME/.local/lib/sh/functions.sh"
+
+## The F
+eval $(thefuck --alias)
+
+## zmv
+autoload zmv
 
 ## Jump Around
 # AKA - z DIR
@@ -209,10 +218,19 @@ if [ -f "$HOME/.bashhub/bashhub.zsh" ]; then
 fi
 
 
+## Plugins
+plugins=(sudo npm git)
+
 ## Aliases
 source "$HOME/.local/lib/sh/aliases.sh"
 
 
 ## Variables
 source "$HOME/.local/lib/sh/variables.sh"
+
+
+### Bashhub.com Installation
+if [ -f ~/.bashhub/bashhub.zsh ]; then
+    source ~/.bashhub/bashhub.zsh
+fi
 
