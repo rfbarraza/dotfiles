@@ -46,7 +46,12 @@ export GPG_TTY=$(tty)
 ## Homebrew
 HOMEBREW_PREFIX=""
 if [[ "$(uname)" == "Darwin" ]]; then
-  HOMEBREW_PREFIX="$HOME/.homebrew"
+  # Legacy macOS systems
+  if [[ $(hostname -s) == "greyfox" ]]; then
+    HOMEBREW_PREFIX="$HOME/.homebrew"
+  else
+    HOMEBREW_PREFIX="/opt/homebrew"
+  fi
 else
   HOMEBREW_PREFIX="$HOME/.linuxbrew"
 fi

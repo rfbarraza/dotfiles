@@ -105,7 +105,12 @@ brew_loader() {
 
 brew_init() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
-    BREW_DEST="$HOME/.homebrew"
+      # Legacy macOS systems
+      if [[ "$(hostname -s)" == "greyfox" ]]; then
+        BREW_DEST="$HOME/.homebrew"
+      else
+        BREW_DEST="/opt/homebrew"
+      fi
   else
     BREW_DEST="$HOME/.linuxbrew"
   fi
