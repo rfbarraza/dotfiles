@@ -6,7 +6,6 @@ cowsay
 figlet
 fortune
 glances
-htop
 irssi
 lolcat
 neofetch
@@ -14,3 +13,4 @@ toilet
 wget
 xz
 you-get
+yt-dlp
