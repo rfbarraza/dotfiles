@@ -60,3 +60,25 @@ linux_check() {
 hashcwd() {
   hash -d "$1"="$PWD"
 }
+
+#####################################
+# Monitors Arduino serial
+# Globals:
+#   minicom
+# Arguments:
+#   None
+# Outputs:
+#   None
+# Returns:
+#   None
+####################################
+console() {
+  modem=`ls -1 /dev/cu.* | grep -vi bluetooth | tail -1`
+  baud=${1:-9600}
+  if [ ! -z "$modem" ]; then
+    minicom -D $modem  -b $baud
+  else
+    echo "No USB modem device found in /dev"
+  fi
+}
+

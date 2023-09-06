@@ -57,6 +57,10 @@ node_modules/
 .pnp
 .pnp.js
 
+## Python
+**/__pycache__
+*.pyc
+
 ## Dev
 .cache
 .env
