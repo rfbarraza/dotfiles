@@ -1,0 +1,19 @@
+servers:
+  localhost:
+    desc: localhost
+    host: localhost
+    local: true
+    tags: [local]
+
+  router:
+    desc: router
+    host: 10.0.0.1
+    local: false
+    tags: [router]
+
+  squirrelbox:
+    desc: squirrelbox.local
+    host: 10.0.0.2
+    local: false
+    tags: [nas, docker-host, manual-linux]
+     

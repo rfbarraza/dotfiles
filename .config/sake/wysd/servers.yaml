@@ -1,0 +1,36 @@
+servers:
+  localhost:
+    desc: localhost
+    host: localhost
+    local: true
+    tags: [local]
+
+  bouncer:
+    desc: bouncer-wysd.lan
+    host: 192.168.86.200 # bouncer-wysd.lan
+    local: false
+    tags: [manual-linux, docker-host] 
+
+  media:
+    desc: media-wysd.lan
+    host: 192.168.86.201 # media-wysd.lan
+    local: false
+    tags: [manual-linux, docker-host]
+
+  hass:
+    desc: ha-wysd.lan (v)
+    host: 192.168.86.205 # ha-wysd.lan
+    local: false
+    tags: [auto-linux, virtual, hass, docker-host]
+    user: root
+    port: 22
+    disable_verify_host: true
+  
+  hass-os:
+    desc: ha-wysd.lan
+    host: 192.168.86.205 # ha-wysd.lan
+    local: false
+    tags: [auto-linux, hass]
+    user: root
+    port: 22222
+    disable_verify_host: true

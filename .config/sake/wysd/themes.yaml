@@ -1,0 +1,8 @@
+themes:
+  default:
+    text:
+      prefix: '{{ .Name }} - {{ .Host }}'
+      prefix_colors: ["cyan", "magenta"]
+      header_filler: "*"
+    table:
+      prefix: '{{ .Name }}'

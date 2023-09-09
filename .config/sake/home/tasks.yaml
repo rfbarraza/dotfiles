@@ -1,0 +1,30 @@
+tasks:
+  ping:
+    desc: ping servers
+    target: all
+    cmd: echo pong
+    spec: detailed-text
+    
+  info:
+    desc: Get linux machines info
+    target: linux-machines
+    spec: free-for-all-table
+    tasks:
+      - task: info-os
+      - task: info-kernel
+      - task: info-uptime 
+  info-os:
+    desc: print OS name
+    cmd: |
+      os=$(lsb_release -si)
+      release=$(lsb_release -sr)
+      echo "$os $release"
+
+  info-kernel:
+    desc: print kernel version
+    cmd: uname -r | awk -v FS='-' '{print $1}'
+
+  info-uptime:
+    desc: print pretty uptime
+    cmd: uptime -p
+    
