@@ -65,6 +65,12 @@ tasks:
 
 # Call Attendant
 # --------------
+  phone-status:
+    desc: journal for CallAttendant
+    target: bouncer
+    spec: simple-text
+    cmd: journalctl -e -n 20 -u callattendant.service
+  
   phonecalls:
     desc: Print summary table of recent call data
     target: bouncer

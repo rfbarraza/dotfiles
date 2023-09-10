@@ -23,6 +23,9 @@ alias ll4="tree --dirsfirst -ChFupDaL 1"
 alias ll5="tree --dirsfirst -ChFupDaL 2"
 alias ll6="tree --dirsfirst -ChFupDaL 3"
 
+alias sake-home="sake -c ~/.config/sake/home/sake.yaml"
+alias sake-wysd="sake -c ~/.config/sake/wysd/sake.yaml"
+
 # (macOS specific)[http://xkcd.com/530/]
 if [[ darwin_check ]]; then
   alias stfu="osascript -e 'set volume output muted true'"
