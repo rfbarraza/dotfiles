@@ -6,7 +6,7 @@ GREP_OPTIONS="--color=auto"
 HISTSIZE=32768 # Larger bash history (allow 2^15 entries; default is 500)
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignoredups
-HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help" # Make some commands not show up in history
+HISTIGNORE="z:ls:cd:cd -:pwd:exit:date:* --help" # Make some commands not show up in history
 
 HOMEBREW_NO_ANALYTICS=1;
 

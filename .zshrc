@@ -239,3 +239,8 @@ if [ -f ~/.bashhub/bashhub.zsh ]; then
     source ~/.bashhub/bashhub.zsh
 fi
 
+### Z (jumparound)
+if [ -d ~/.local/lib/zsh-z ]; then
+    source ~/.local/lib/zsh-z/zsh-z.plugin.zsh
+fi
+

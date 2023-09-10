@@ -6,4 +6,4 @@
     sake -c ~/.config/sake/wysd/sake.yaml run docker-status;
     sake -c ~/.config/sake/wysd/sake.yaml run phone-status;
     sake -c ~/.config/sake/wysd/sake.yaml run phonecalls;
-} > ~/Desktop/sake-wysd-report.txt
+} | sed 's/\[[0-9;]*m//g' | sed 's/\[0;1m//g' > ~/Desktop/sake-wysd-report.txt

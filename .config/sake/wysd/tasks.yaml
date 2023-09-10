@@ -1,7 +1,8 @@
 tasks:
   ping:
     desc: ping servers
-    target: all
+    target:
+      servers: [bouncer, media, hass]
     cmd: echo pong
     spec: detailed-text
 
