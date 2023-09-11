@@ -102,3 +102,33 @@ tasks:
     target: 
       servers: [bouncer]
     cmd:  sqlite3 ~/.config/callattendant/callattendant.db 'SELECT Name, Number, Reason, Date, 'Time' FROM CallLog WHERE action = "Permitted" ORDER BY CallLogId DESC LIMIT 10;' | sed 's/|/\t/g' | lcolumn -s $'\t' --table --table-columns NAME,NUMBER,REASON,DATE,TIME --table-right DATE,TIME -o ' | '
+
+
+# E-Mail
+# ------
+  dads-email:
+    desc: Dad's recent email activity
+    target:
+      servers: [bouncer]
+    spec:
+      describe: false
+      list_hosts: false
+      output: table-2
+      report: [none]
+    tasks:
+      - task: dads-inbox
+      - task: dads-spam
+  
+  dads-inbox:
+    desc: Dad's recent Inbox messages
+    target:
+      servers: [bouncer]
+    spec: simple-text
+    cmd: NODE_PATH=$(npm root -g) node ~/.local/lib/js/dads_mail.js INBOX 7 | lcolumn -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
+  
+  dads-spam:
+    desc: Dad's recent "Spam"
+    target:
+      servers: [bouncer]
+    spec: simple-text
+    cmd: NODE_PATH=$(npm root -g) node ~/.local/lib/js/dads_mail.js Bulk 14 | lcolumn -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
