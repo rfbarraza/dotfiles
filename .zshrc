@@ -78,6 +78,11 @@ fi
 PATH="/opt/local/sbin:$PATH"
 PATH="/opt/local/bin:$PATH"
 
+# GNU Utilities Homebrew
+if [ -d "$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin" ]; then
+    PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+
 # User Homebrew
 PATH="$HOMEBREW_PREFIX/Cellar:$PATH"
 PATH="$HOMEBREW_PREFIX/bin:$PATH"
