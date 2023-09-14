@@ -26,8 +26,11 @@ alias ll6="tree --dirsfirst -ChFupDaL 3"
 alias sake-home="sake -c ~/.config/sake/home/sake.yaml"
 alias sake-wysd="sake -c ~/.config/sake/wysd/sake.yaml"
 
+alias wysd-status-diff="sake-wysd-status.sh && find ~/Documents/Family/Wayside/Status/*.txt -print | tail -n 2 | xargs ksdiff"
+
 # (macOS specific)[http://xkcd.com/530/]
 if [[ darwin_check ]]; then
   alias stfu="osascript -e 'set volume output muted true'"
   alias pumpitup="osascript -e 'set volume 10'"
 fi
+
