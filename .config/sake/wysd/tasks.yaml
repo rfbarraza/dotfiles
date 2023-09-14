@@ -118,6 +118,7 @@ tasks:
     tasks:
       - task: dads-inbox
       - task: dads-spam
+      - task: dads-trash
   
   dads-inbox:
     desc: Dad's recent Inbox messages
@@ -132,3 +133,10 @@ tasks:
       servers: [bouncer]
     spec: simple-text
     cmd: NODE_PATH=$(npm root -g) node ~/.local/lib/js/dads_mail.js Bulk 14 | lcolumn -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
+
+  dads-trash:
+    desc: Dad's recently deleted mail
+    target: 
+      servers: [bouncer]
+    spec: simple-text
+    cmd: NODE_PATH=$(npm root -g) node ~/.local/lib/js/dads_mail.js Trash 7 | lcolumn -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
