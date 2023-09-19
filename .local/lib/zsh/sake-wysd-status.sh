@@ -20,5 +20,5 @@
     echo "# E-Mail"
     echo "# ###################################################################\n"
     sake -c ~/.config/sake/sake.yaml run dads-email;
-} | sed 's/\[[0-9;]*m//g' | sed 's/\[0;1m//g' # > ~/Documents/Family/Wayside/Status/sake-report-$(date +%Y-%m-%d).txt
+} | sed 's/\[[0-9;]*m//g' | sed 's/\[0;1m//g' > ~/Documents/Family/Wayside/Status/sake-report-$(date +%Y-%m-%d).txt
 
