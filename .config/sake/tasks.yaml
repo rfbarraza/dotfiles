@@ -1,0 +1,67 @@
+import:
+  - tasks/wysd.yaml
+
+
+tasks:
+  ping:
+    desc: ping servers
+    cmd: echo pong
+    spec: detailed-text
+
+# Info
+# ----
+  info:
+    desc: Get linux machines info
+    spec: free-for-all-table
+    tasks:
+      - task: info-os
+      - task: info-kernel
+      - task: info-uptime 
+  info-os:
+    desc: print OS name
+    cmd: |
+      os=$(lsb_release -si)
+      release=$(lsb_release -sr)
+      echo "$os $release"
+
+  info-kernel:
+    desc: print kernel version
+    cmd: uname -r | awk -v FS='-' '{print $1}'
+
+  info-uptime:
+    desc: print pretty uptime
+    cmd: uptime -p
+
+
+# Docker
+# ------
+  docker-status:
+    desc: Print a short status for all Docker containers
+    target: docker-hosts
+    spec: free-for-all-table
+    tasks:
+      - task: doc-name
+      - task: doc-state
+      - task: doc-uptime
+      - task: doc-since
+      - task: doc-ports
+
+  doc-name:
+    desc: List containers by name
+    cmd: docker ps -a --format '{{.Names}}'
+
+  doc-state:
+    desc: List containers states
+    cmd: docker ps -a --format '{{.State}}'
+
+  doc-uptime:
+    desc: List containers uptimes
+    cmd: docker ps -a --format '{{.Status}}'
+
+  doc-since:
+    desc: List containers up-since
+    cmd: docker ps -a --format '{{.RunningFor}}'
+
+  doc-ports:
+    desc: List containers ports
+    cmd: docker ps -a --format '{{range $i, $element := (split .Ports ",")}}{{if (or (eq $i 1) (eq $i 3) (eq $i 5) (eq $i 7) (eq $i 9) (eq $i 11) (eq $i 13))}}{{range $j, $b := (split $element "->")}}{{if (eq $j 0)}}{{range $k := (split $b ":")}}{{if $k}}{{$k}}{{end}}{{end}}{{end}}{{end}}{{end}}{{end}}'

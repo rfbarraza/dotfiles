@@ -1,0 +1,49 @@
+servers:
+  localhost:
+    desc: localhost
+    host: localhost
+    local: true
+    tags: [local]
+
+  # Wysd
+  # ----
+  bouncer-wysd:
+    desc: bouncer-wysd.lan
+    host: 10.16.0.2
+    local: false
+    tags: [remote, manual-linux, docker-host,
+           wysd-remote, wysd-manual-linux, wysd-docker-host] 
+    user: rene
+    disable_verify_host: true
+    env:
+      NODE_PATH: /home/rene/.nvm/versions/node/v20.6.1/lib/node_modules
+      NODE: /home/rene/.nvm/versions/node/v20.6.1/bin/node
+
+  media-wysd:
+    desc: media-wysd.lan
+    host: 10.16.0.3
+    local: false
+    tags: [remote, manual-linux, docker-host,
+           wysd-remote, wysd-manual-linux, wysd-docker-host]
+    disable_verify_host: true
+
+  ha-wysd:
+    desc: ha-wysd.lan (v)
+    host: 10.16.0.4
+    local: false
+    tags: [remote, auto-linux, virtual, hass, docker-host,
+           wysd-remote, wysd-auto-linux, wyds-virtual, wysd-docker-host]
+    user: root
+    port: 22
+    disable_verify_host: true
+  
+  ha-wysd-os:
+    desc: ha-wysd.lan
+    host: 10.16.0.4
+    local: false
+    tags: [remote, auto-linux, hass,
+           wysd-remote, wysd-auto-linux, wysd-hass]
+    user: root
+    port: 22222
+    shell: sh
+    disable_verify_host: true

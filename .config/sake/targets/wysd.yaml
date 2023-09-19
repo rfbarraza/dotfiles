@@ -1,0 +1,9 @@
+targets:
+  wysd-docker-hosts:
+    all: false
+    tags: [wysd-docker-host]
+
+  wysd-linux-machines:
+    all: false
+    tags: [wysd-manual-linux]
+    

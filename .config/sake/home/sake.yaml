@@ -1,7 +1,0 @@
-import:
-  - servers.yaml
-  - targets.yaml
-  - themes.yaml
-  - specs.yaml
-  - tasks.yaml
-  

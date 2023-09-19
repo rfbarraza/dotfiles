@@ -1,13 +1,17 @@
+import:
+  - targets/wysd.yaml
+  
 targets:
   all:
     all: true
     tags: []
     servers: []
 
-  linux-machines:
-    all: false
-    tags: [manual-linux]
-
   docker-hosts:
     all: false
     tags: [docker-host]
+
+  linux-machines:
+    all: false
+    tags: [manual-linux]
+    

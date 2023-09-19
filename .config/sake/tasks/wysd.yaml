@@ -1,0 +1,105 @@
+tasks:
+  wysd-ping:
+    desc: Establish connections with the servers at wysd
+    spec: detailed-text
+    tasks:
+      - task: ping
+    target:
+      servers: [bouncer-wysd, media-wysd, ha-wysd]
+  
+  wysd-info:
+    desc: Display uptime info for the wysd linux machines
+    spec: free-for-all-table
+    tasks:
+      - task: info
+    target: wysd-linux-machines
+
+# Docker
+# ------
+
+  wysd-docker-status:
+    desc: Status for all of the Docker processes at wysd
+    spec: free-for-all-table
+    tasks:
+      - task: docker-status
+    target: wysd-docker-hosts
+
+
+# Call Attendant
+# --------------
+  callattendant-status:
+    desc: journal for CallAttendant
+    target: 
+      servers: [bouncer-wysd]
+    spec: simple-text
+    cmd: journalctl -e -n 20 -u callattendant.service
+  
+  phonecalls:
+    desc: Print summary table of recent call data
+    target: 
+      servers: [bouncer-wysd]
+    spec:
+      describe: false
+      list_hosts: false
+      output: table-2
+      report: [none]
+    tasks:
+      - task: permitted-calls
+      - task: screened-calls
+      - task: blocked-calls
+
+  blocked-calls:
+    desc: Print a table of recently blocked calls
+    target:
+      servers: [bouncer-wysd]
+    cmd: sqlite3 ~/.config/callattendant/callattendant.db 'SELECT Name, Number, Reason, Date, 'Time' FROM CallLog WHERE action = "Blocked" AND name != "O" ORDER BY CallLogId DESC LIMIT 20;' | sed 's/|/\t/g' | column -s $'\t' --table --table-columns NAME,NUMBER,REASON,DATE,TIME --table-right DATE,TIME -o ' | '
+
+  screened-calls:
+    desc: Print a table of recently screened calls
+    target: 
+      servers: [bouncer-wysd]
+    cmd: sqlite3 ~/.config/callattendant/callattendant.db 'SELECT Name, Number, Reason, Date, 'Time' FROM CallLog WHERE action = "Screened" ORDER BY CallLogId DESC LIMIT 10;' | sed 's/|/\t/g' | column -s $'\t' --table --table-columns NAME,NUMBER,REASON,DATE,TIME --table-right DATE,TIME -o ' | '
+  
+  permitted-calls:
+    desc: Print a table of recently permitted calls
+    target: 
+      servers: [bouncer-wysd]
+    cmd:  sqlite3 ~/.config/callattendant/callattendant.db 'SELECT Name, Number, Reason, Date, 'Time' FROM CallLog WHERE action = "Permitted" ORDER BY CallLogId DESC LIMIT 10;' | sed 's/|/\t/g' | column -s $'\t' --table --table-columns NAME,NUMBER,REASON,DATE,TIME --table-right DATE,TIME -o ' | '
+
+
+# E-Mail
+# ------
+  dads-email:
+    desc: Dad's recent email activity
+    target:
+      servers: [bouncer-wysd]
+    spec:
+      describe: false
+      list_hosts: false
+      output: table-2
+      report: [none]
+    tasks:
+      - task: dads-inbox
+      - task: dads-spam
+      - task: dads-trash
+  
+  dads-inbox:
+    desc: Dad's recent Inbox messages
+    target:
+      servers: [bouncer-wysd]
+    spec: simple-text
+    cmd: $NODE ~/.local/lib/js/dads_mail.js INBOX 7 | column -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
+  
+  dads-spam:
+    desc: Dad's recent "Spam"
+    target:
+      servers: [bouncer-wysd]
+    spec: simple-text
+    cmd: $NODE ~/.local/lib/js/dads_mail.js Bulk 14 | column -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
+
+  dads-trash:
+    desc: Dad's recently deleted mail
+    target: 
+      servers: [bouncer-wysd]
+    spec: simple-text
+    cmd: $NODE ~/.local/lib/js/dads_mail.js Trash 7 | column -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
