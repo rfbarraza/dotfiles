@@ -23,8 +23,7 @@ alias ll4="tree --dirsfirst -ChFupDaL 1"
 alias ll5="tree --dirsfirst -ChFupDaL 2"
 alias ll6="tree --dirsfirst -ChFupDaL 3"
 
-alias sake-home="sake -c ~/.config/sake/home/sake.yaml"
-alias sake-wysd="sake -c ~/.config/sake/wysd/sake.yaml"
+alias dassai="sake -c ~/.config/sake/sake.yaml"
 
 alias wysd-status-diff="sake-wysd-status.sh && find ~/Documents/Family/Wayside/Status/*.txt -print | tail -n 2 | xargs ksdiff"
 
