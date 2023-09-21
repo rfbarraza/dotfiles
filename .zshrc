@@ -239,17 +239,19 @@ source "$HOME/.local/lib/sh/aliases.sh"
 source "$HOME/.local/lib/sh/variables.sh"
 
 
-### Bashhub.com Installation
+## Bashhub.com Installation
 if [ -f ~/.bashhub/bashhub.zsh ]; then
     source ~/.bashhub/bashhub.zsh
 fi
 
-### Z (jumparound)
+## Z (jumparound)
 if [ -d ~/.local/lib/zsh-z ]; then
     source ~/.local/lib/zsh-z/zsh-z.plugin.zsh
 fi
 
-
+## NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
+
