@@ -103,3 +103,13 @@ tasks:
       servers: [bouncer-wysd]
     spec: simple-text
     cmd: $NODE ~/.local/lib/js/dads_mail.js Trash 7 | column -s $'\t' --table --table-columns FROM,SUBJECT,DATE --table-right DATE -o ' | '
+
+
+# Network
+# -------
+  wysd-unknowns:
+    desc: arp for DHCP random addresses at wysd
+    target:
+      servers: [localhost]
+    spec: simple-text
+    cmd: arp -a | awk '/10\.16\.0\.2[0-9][0-9]\)/ || /10\.16\.0\.1[2-9][0-9]/ {print}'
