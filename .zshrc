@@ -197,30 +197,47 @@ rbenv() {
 
 
 ## Python
-PYENV__HOME="$HOME/.pyenv"
-if command -v brew >/dev/null 2>&1; then
-  PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
-  PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
-fi
-PATH="$HOME/.pyenv/shims:${PATH}"
-PYENV_SHELL=zsh
-source "$PYENV__HOME/libexec/../completions/pyenv.zsh"
-command pyenv rehash 2>/dev/null
-pyenv() {
-  local command
-  command="${1:-}"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+#PYENV__HOME="$HOME/.pyenv"
+#if command -v brew >/dev/null 2>&1; then
+#  PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
+#  PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
+#fi
+#PYENV_ROOT="$HOME/.pyenv"
+#PATH="$PYENV_ROOT/bin:$PATH"
+#PATH="$PYENV_ROOT/shims:${PATH}"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+#PYENV_SHELL=zsh
+#source "$PYENV__HOME/libexec/../completions/pyenv.zsh"
+#command pyenv rehash 2>/dev/null
+#pyenv() {
+#  local command
+#  command="${1:-}"
+#  if [ "$#" -gt 0 ]; then
+#    shift
+#  fi
+#
+#  case "$command" in
+#  rehash|shell)
+#    eval "$(pyenv "sh-$command" "$@")";;
+#  *)
+#    command pyenv "$command" "$@";;
+#  esac
+#}
 
-  case "$command" in
-  rehash|shell)
-    eval "$(pyenv "sh-$command" "$@")";;
-  *)
-    command pyenv "$command" "$@";;
-  esac
-}
+# virtualenv
+# WORKON_HOME=$HOME/.virtualenvs
+# source $HOME/.pyenv/shims/virtualenvwrapper.sh
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/repo/prj
+# if command -v pyenv 1>/dev/null 2>&1; then
+#  eval "$(pyenv init --path)"
+# fi
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 ## Bashhub
 if [ -f "$HOME/.bashhub/bashhub.zsh" ]; then
