@@ -10,6 +10,7 @@ find "$HOME/.config/yadm/alt/.ssh" -type f -name "*bouncer-wysd*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*fiddle-wysd*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*fitlet*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*fixit-wysd*" -delete
+find "$HOME/.config/yadm/alt/.ssh" -type f -name "*hassio*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*media-wysd*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*wayside*" -delete
 find "$HOME/.config/yadm/alt/.ssh" -type f -name "*wacom-pc*" -delete
