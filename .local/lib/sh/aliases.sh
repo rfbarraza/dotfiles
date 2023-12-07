@@ -25,7 +25,7 @@ alias ll6="tree --dirsfirst -ChFupDaL 3"
 
 alias dassai="sake -c ~/.config/sake/sake.yaml"
 
-alias wysd-status-diff="sake-wysd-status.sh && find ~/Documents/Family/Wayside/Status/*.txt -print | tail -n 2 | xargs ksdiff"
+alias wysd-status-diff="sake-wysd-status.sh -W && find ~/Documents/Family/Wayside/Status/*.txt -print | tail -n 2 | xargs ksdiff"
 
 # (macOS specific)[http://xkcd.com/530/]
 if [[ darwin_check ]]; then
