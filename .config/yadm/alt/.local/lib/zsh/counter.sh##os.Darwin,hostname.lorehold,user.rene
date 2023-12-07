@@ -1,0 +1,64 @@
+#! /usr/bin/env bash
+
+# Defaults
+# --------
+DIR="$HOME/.tmp"
+NAME="any"
+START_VALUE=1
+
+# Functions 
+# ---------
+function print_usage {
+  echo "Usage: $0 [-h] [-d dir{~/.tmp}] [-n name{any}] [-v start_value{1}]" 1>&2
+}
+
+function usage {
+  print_usage
+  exit 0
+}
+
+function usage_error {
+  print_usage
+  exit 1
+}
+
+function main {
+  local dir="$1"
+  local name="$2"
+  local value=$3
+  
+  local file_name="${name}_count.txt"
+  local file_path="${dir}/${file_name}"
+  
+  if [[ -f "$file_path" ]]; then
+      value=$(<$file_path)
+      value=$((++value))
+  fi
+  echo "$value" > "$file_path"
+  
+  exit 0
+}
+
+# Script
+# ------
+while getopts "hd:n:v:" arg; do
+  case $arg in
+  h)
+    usage
+    ;;
+  d)
+    DIR="$OPTARG"
+    ;;
+  n)
+    NAME="$OPTARG"
+    ;;
+  v)
+    START_VALUE=$OPTARG
+    ;;
+  ?)
+    usage_error
+    ;;
+  esac
+done
+
+main "$DIR" "$NAME" "$START_VALUE"
