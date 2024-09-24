@@ -1,33 +1,79 @@
 #!/bin/zsh
 
-tmux has-session -t default
-if [ $? != 0 ] 
-then
-    tmux new-session -s default -n workspace -d
+function setup {
+  tmux new-session -s default -n workspace -d
 
-    tmux split-window -h -t default
-    tmux send-keys -t default 'cd' C-m
-    tmux send-keys -t default 'clear' C-m
-    tmux split-window -v -t default
-    tmux send-keys -t default 'cd' C-m
-    tmux send-keys -t default 'clear' C-m
-    
-    tmux new-window -n logs -t default
-    tmux send-keys -t default 'cd' C-m
-    tmux send-keys -t default 'clear' C-m
-    tmux split-window -h -t default:2
-    tmux send-keys -t default 'cd' C-m
-    tmux send-keys -t default 'clear' C-m
+  tmux split-window -h -t default
+  tmux send-keys -t default 'cd' C-m
+  tmux send-keys -t default 'clear' C-m
+  tmux send-keys -t default 'htop -u nobody' C-m
+  tmux split-window -v -t default
+  tmux send-keys -t default 'cd' C-m
+  tmux send-keys -t default 'clear' C-m
+  tmux send-keys -t default 'cbonsai -li' C-m
 
-    tmux new-window -n etc -t default
-    tmux send-keys -t default:3 'cd' C-m
-    tmux send-keys -t default:3 'clear' C-m
-    tmux split-window -h -t default:3
-    tmux send-keys -t default:3 'cd' C-m
-    tmux send-keys -t default:3 'clear' C-m
+  tmux new-window -n logs -t default
+  tmux send-keys -t default 'cd' C-m
+  tmux send-keys -t default 'clear' C-m
+  tmux split-window -h -t default:2
+  tmux send-keys -t default 'cd' C-m
+  tmux send-keys -t default 'clear' C-m
 
-    tmux new-window -n shell -t default
-fi
-tmux  select-window -t default:1
-tmux select-pane -t 1
-tmux attach -t default
+  tmux new-window -n etc -t default
+  tmux send-keys -t default:3 'cd' C-m
+  tmux send-keys -t default:3 'clear' C-m
+  tmux split-window -h -t default:3
+  tmux send-keys -t default:3 'cd' C-m
+  tmux send-keys -t default:3 'clear' C-m
+
+  tmux new-window -n shell -t default    
+}
+
+function select_window_pane {
+  local window=$1
+  local pane=$2
+  
+  tmux select-window -t default:$1
+  tmux select-pane -t $2
+}
+
+function attach {
+  select_window_pane 1 1
+  tmux attach -t default
+}
+
+function auto_resize_workspace {
+  local window_width=$(tmux display-message -p "#{window_width}")
+  local window_height=$(tmux display-message -p "#{window_height}")
+
+  # Width
+  select_window_pane 1 1
+  if [[ $window_width -eq 125 ]]; then # Half-width (laptop)
+      tmux resizep -x "60%"
+  elif [[ $window_width -eq 242 ]]; then # (desktop)
+      tmux resizep -x "75%"
+  elif [[ $window_width -eq 253 ]]; then # Full-width (laptop)
+      tmux resizep -x "75%"
+  elif [[ $window_width -eq 487 ]]; then # (desktop)
+      tmux resizep -x "80%"
+  fi
+  
+  #Height
+  select_window_pane 1 2
+  tmux resizep -y "10"
+}
+
+function main {
+  tmux has-session -t default
+  if [[ $? != 0 ]]; then 
+    setup
+  fi
+
+  auto_resize_workspace
+  attach
+}
+
+
+main
+
+return 0

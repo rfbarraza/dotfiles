@@ -18,6 +18,7 @@
 # ## Keybindings
 # ## Functions
 # ## The F
+# ## fzf
 # ## zmv
 # ## Jump Around
 # ## Inline VIM
@@ -31,6 +32,7 @@
 # ## Variables
 #
 
+GITSTATUS_LOG_LEVEL=DEBUG
 
 ## zsh
 ZSH="$HOME/.oh-my-zsh"
@@ -105,6 +107,12 @@ source "$HOME/.local/lib/sh/functions.sh"
 ## The F
 eval $(thefuck --alias)
 
+## fzf
+which fzf
+if [[ $? -eq 0]]; then
+  source <(fzf --zsh)
+fi
+
 ## zmv
 autoload zmv
 
@@ -128,12 +136,12 @@ bindkey '^x^e' edit-command-line
 
 
 ## Theme
-if command -v brew >/dev/null 2>&1; then
-  source "$HOMEBREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
-else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-  source "$HOME/.oh-my-zsh/custom/themes/$ZSH_THEME.zsh-theme"
-fi
+#if command -v brew >/dev/null 2>&1; then
+#  source "$HOMEBREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
+#else
+ZSH_THEME="powerlevel10k/powerlevel10k"
+source "$HOME/.oh-my-zsh/custom/themes/$ZSH_THEME.zsh-theme"
+#fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -178,7 +186,8 @@ fi
 PATH="$HOME/.rbenv/bin:$PATH"
 PATH="$HOME/.rbenv/shims:${PATH}"
 RBENV_SHELL=zsh
-source "$RBENV__HOME/libexec/../completions/rbenv.zsh"
+# source "$RBENV__HOME/libexec/../completions/rbenv.bash"
+eval "$(rbenv init - zsh)"
 command rbenv rehash 2>/dev/null
 rbenv() {
   local command

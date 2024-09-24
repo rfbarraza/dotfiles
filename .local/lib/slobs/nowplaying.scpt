@@ -1,0 +1,1 @@
+../../../.config/yadm/alt/.local/lib/slobs/nowplaying.scpt##os.Darwin

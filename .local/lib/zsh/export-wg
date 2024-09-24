@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+
+##############################################################################
+#                                                                            #
+# ░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀░░░░░█░█░█▀▀                                       #
+# ░█▀▀░▄▀▄░█▀▀░█░█░█▀▄░░█░░▄▄▄░█▄█░█░█                                       #
+# ░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░░▀░░░░░░▀░▀░▀▀▀                                       #
+#                                                                            #
+#                                                                            #
+# Export wg-quick settings from keychain                                     #
+#                                                                            #
+##############################################################################
+
+
+usage() { echo "Usage: $0 -n <string>" 1>&2; exit 1; }
+
+while getopts ":n:" o; do
+    case "${o}" in
+        n)
+            name="${OPTARG}"
+            ;;
+        ?)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${name}" ]; then
+    usage
+fi
+
+main() {
+    temp=$(mktemp)
+    security find-generic-password -l "WireGuard Tunnel: ${name}" -g  2> "${temp}" 1> /dev/null;
+    sed -i 's/password: 0x[A-F0-9]* // ; s/^ // ; s/^"// ; s/"$// ; s/\\012/\n/g' ${temp}
+    cat ${temp};
+    rm ${temp}
+}
+
+main

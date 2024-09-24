@@ -31,5 +31,6 @@ alias wysd-status-diff="sake-wysd-status.sh -W && find ~/Documents/Family/Waysid
 if [[ darwin_check ]]; then
   alias stfu="osascript -e 'set volume output muted true'"
   alias pumpitup="osascript -e 'set volume 10'"
+  alias owlocr="/Applications/OwlOCR.app/Contents/MacOS/OwlOCR"
 fi
 
