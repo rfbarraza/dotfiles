@@ -108,8 +108,8 @@ source "$HOME/.local/lib/sh/functions.sh"
 eval $(thefuck --alias)
 
 ## fzf
-which fzf
-if [[ $? -eq 0]]; then
+command -v fzf > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
   source <(fzf --zsh)
 fi
 

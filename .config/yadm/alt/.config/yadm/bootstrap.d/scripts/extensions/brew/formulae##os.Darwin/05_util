@@ -8,6 +8,7 @@ cowsay
 displayplacer
 figlet
 fortune
+fzf
 glances
 gnu-sed
 htop
