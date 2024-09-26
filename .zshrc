@@ -108,8 +108,7 @@ source "$HOME/.local/lib/sh/functions.sh"
 eval $(thefuck --alias)
 
 ## fzf
-command -v fzf > /dev/null 2>&1
-if [[ $? -eq 0 ]]; then
+if command -v fzf > /dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
@@ -154,28 +153,7 @@ if command -v brew >/dev/null 2>&1; then
   JENV__HOME="$HOMEBREW_PREFIX/Cellar/jenv/$JENV__LAST_VERS/libexec" # no, that's right
 fi
 PATH="$HOME/.jenv/bin:$PATH"
-PATH="$HOME/.jenv/shims:${PATH}"
-JENV_SHELL=zsh
-JENV_LOADED=1
-unset JAVA_HOME
-source "$JENV__HOME/libexec/../completions/jenv.zsh"
-jenv rehash 2>/dev/null
-jenv refresh-plugins
-jenv() {
-  typeset command
-  command="$1"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
-
-  case "$command" in
-  enable-plugin|rehash|shell|shell-options)
-    eval `jenv "sh-$command" "$@"`;;
-  *)
-    command jenv "$command" "$@";;
-  esac
-}
-
+eval "$(jenv init -)"
 
 ## Ruby
 RBENV__HOME="/usr/lib/rbenv"
@@ -184,69 +162,21 @@ if command -v brew >/dev/null 2>&1; then
   RBENV__HOME="$HOMEBREW_PREFIX/Cellar/rbenv/$RBENV__LAST_VERS"
 fi
 PATH="$HOME/.rbenv/bin:$PATH"
-PATH="$HOME/.rbenv/shims:${PATH}"
-RBENV_SHELL=zsh
-# source "$RBENV__HOME/libexec/../completions/rbenv.bash"
-eval "$(rbenv init - zsh)"
-command rbenv rehash 2>/dev/null
-rbenv() {
-  local command
-  command="${1:-}"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
-
-  case "$command" in
-  rehash|shell)
-    eval "$(rbenv "sh-$command" "$@")";;
-  *)
-    command rbenv "$command" "$@";;
-  esac
-}
-
+eval "$(rbenv init -)"
 
 ## Python
-#PYENV__HOME="$HOME/.pyenv"
-#if command -v brew >/dev/null 2>&1; then
-#  PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
-#  PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
-#fi
-#PYENV_ROOT="$HOME/.pyenv"
-#PATH="$PYENV_ROOT/bin:$PATH"
-#PATH="$PYENV_ROOT/shims:${PATH}"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-#PYENV_SHELL=zsh
-#source "$PYENV__HOME/libexec/../completions/pyenv.zsh"
-#command pyenv rehash 2>/dev/null
-#pyenv() {
-#  local command
-#  command="${1:-}"
-#  if [ "$#" -gt 0 ]; then
-#    shift
-#  fi
-#
-#  case "$command" in
-#  rehash|shell)
-#    eval "$(pyenv "sh-$command" "$@")";;
-#  *)
-#    command pyenv "$command" "$@";;
-#  esac
-#}
+PYENV__HOME="$HOME/.pyenv"
+if command -v brew >/dev/null 2>&1; then
+  PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
+  PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
+fi
+PYENV_ROOT="$HOME/.pyenv"
+PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # virtualenv
-# WORKON_HOME=$HOME/.virtualenvs
+WORKON_HOME=$HOME/.virtualenvs
 # source $HOME/.pyenv/shims/virtualenvwrapper.sh
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/repo/prj
-# if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init --path)"
-# fi
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 ## Bashhub
 if [ -f "$HOME/.bashhub/bashhub.zsh" ]; then
