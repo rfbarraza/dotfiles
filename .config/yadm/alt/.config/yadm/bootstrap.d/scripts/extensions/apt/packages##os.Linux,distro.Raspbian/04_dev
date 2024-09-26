@@ -1,5 +1,6 @@
 zshdb
 perl
+python3-virtualenv
 ruby
 rbenv
 nodejs
