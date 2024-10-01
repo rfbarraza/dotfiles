@@ -152,7 +152,7 @@ if command -v brew >/dev/null 2>&1; then
   JENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/jenv | sort |  tail -1)"  
   JENV__HOME="$HOMEBREW_PREFIX/Cellar/jenv/$JENV__LAST_VERS/libexec" # no, that's right
 fi
-PATH="$HOME/.jenv/bin:$PATH"
+PATH="$JENV__HOME/bin:$PATH"
 eval "$(jenv init -)"
 
 ## Ruby
@@ -161,7 +161,7 @@ if command -v brew >/dev/null 2>&1; then
   RBENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/rbenv | sort |  tail -1)"
   RBENV__HOME="$HOMEBREW_PREFIX/Cellar/rbenv/$RBENV__LAST_VERS"
 fi
-PATH="$HOME/.rbenv/bin:$PATH"
+PATH="$RBENV__HOME/bin:$PATH"
 eval "$(rbenv init -)"
 
 ## Python
@@ -170,8 +170,7 @@ if command -v brew >/dev/null 2>&1; then
   PYENV__LAST_VERS="$(ls -1 $HOMEBREW_PREFIX/Cellar/pyenv | sort |  tail -1)"
   PYENV__HOME="$HOMEBREW_PREFIX/Cellar/pyenv/$PYENV__LAST_VERS"
 fi
-PYENV_ROOT="$HOME/.pyenv"
-PATH="$PYENV_ROOT/bin:$PATH"
+PATH="$PYENV__HOME/bin:$PATH"
 eval "$(pyenv init -)"
 
 # virtualenv
